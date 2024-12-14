@@ -23,7 +23,11 @@ const taskList = document.getElementById("task-list");
 window.onload = () => {
   try {
     const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    renderTasksRecursively(storedTasks); // Using recursion to render tasks
+    const transformedTasks = storedTasks.map((task) => ({
+      ...task,
+      text: task.text.toUpperCase(),
+    }));
+    renderTasksRecursively(transformedTasks); // Using recursion to render tasks
   } catch (error) {
     console.error("Error loading tasks:", error);
   }
@@ -52,7 +56,7 @@ addTaskBtn.addEventListener("click", () => {
 
   const task = {
     id: Date.now(),
-    text: taskText,
+    text: taskText.toUpperCase(),
     completed: false,
   };
 
